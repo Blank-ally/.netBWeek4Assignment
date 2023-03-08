@@ -20,11 +20,12 @@ public class FileService : IFileService
     private Movie movie;
 
     private List<Movie> movieList = new List<Movie>();
+    private validtaion check = new validtaion();
 
-    private List<string> list = new List<string>();
+    // private List<string> list = new List<string>();
 
 
-   // MovieList list = new MovieList();
+    // MovieList list = new MovieList();
 
 
 
@@ -36,7 +37,7 @@ public class FileService : IFileService
     public void Read()
 
     {
-      
+
         _logger.Log(LogLevel.Information, "Reading");
         Console.WriteLine("*** I am reading");
 
@@ -53,8 +54,8 @@ public class FileService : IFileService
                     var line = sr.ReadLine();
 
                     movie = JsonConvert.DeserializeObject<Movie>(line);
-                    
-                    list.Add(movie);
+
+                    movieList.Add(movie);
                 }
             }
 
@@ -65,18 +66,18 @@ public class FileService : IFileService
             {
                 sr.Close();
             }
-           /* Console.WriteLine("how many records would you like to see ");
-            var amount = Convert.ToInt32(Console.ReadLine());
-            var loop = list.getMovies() - amount;*/
+            /* Console.WriteLine("how many records would you like to see ");
+             var amount = Convert.ToInt32(Console.ReadLine());
+             var loop = list.getMovies() - amount;*/
 
-               for (var i = 0; i < list.Count; i++)
-               {
-                   Console.WriteLine(list[i]);
-                   Console.WriteLine();
-               }
+            for (var i = 0; i < movieList.Count; i++)
+            {
+                Console.WriteLine(movieList[i]);
+                Console.WriteLine();
+            }
 
 
-           //var sw = new StreamWriter(file, true);
+            //var sw = new StreamWriter(file, true);
 
             // json = JsonConvert.;
 
@@ -87,15 +88,11 @@ public class FileService : IFileService
 
     public void Write()
     {
+      
 
-        using (var sw = new StreamWriter(movie))
-        {
-            //  movie = JsonConvert.SerializeObject("");
-            sw.WriteLine(movie);
+        var sw = new StreamWriter(file, true);
 
-            //var sw = new StreamWriter(file, true);
-        }
-    // gathering user input
+        // gathering user input
 
         //  var id = Lines.Count + 1;
 
@@ -103,20 +100,20 @@ public class FileService : IFileService
         Console.WriteLine("Movie Id");
         var id = Convert.ToInt64(Console.ReadLine());
 
-        while (check.IdContains(id))
+        /*while (check.IdContains(id))
         {
             Console.WriteLine($"ID {id} already exists make another ID");
             id = Convert.ToInt64(Console.ReadLine());
         }
-
+        */
 
         Console.WriteLine("Title");
         var title = Console.ReadLine();
-        while (check.TitleContains(title))
+       /* while (check.TitleContains(title))
         {
             Console.WriteLine($"Title {title} already exists make another Title");
             title = Console.ReadLine();
-        }
+        }*/
 
 
         Console.WriteLine("how many genres");
@@ -132,14 +129,15 @@ public class FileService : IFileService
             genres[i] = Console.ReadLine();
         }
 
+        Movie movie = new Movie(id, title, genres);
 
-        sw.WriteLine(check.create(id, title, string.Join('|', genres)));
-        Lines.Add(check.create(id, title, string.Join('|', genres)));
+        sw.WriteLine(JsonConvert.SerializeObject(movie));
+        movieList.Add(movie);
+        //sw.WriteLine(check.create(id, title, string.Join('|', genres)));
+        // Lines.Add(check.create(id, title, string.Join('|', genres)));
 
 
         sw.Close(); // always close and don't loop your close statement
-        list.AddMovie(movie, json);
-        // test 
     }
 }
     

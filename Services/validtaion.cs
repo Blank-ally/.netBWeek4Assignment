@@ -8,7 +8,8 @@ namespace ApplicationTemplate.Services
 {
     internal class validtaion
     {
-      MovieList list = new MovieList();
+        List<Int64> IDs = new List<Int64>();
+        List<string> Titles = new List<string>();
 
 
         private string id;

@@ -29,7 +29,7 @@ public class MainService : IMainService
             // Is it part of the FileService or some other service?
             if (choice == "1")
             {
-               // _fileService.Write();
+                _fileService.Write();
             }
             else if (choice == "2")
             {
